@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.idea/
+.DS_Store
+Thumbs.db
+~$*
+outputs/
+
+# Local archives and private material
+_local-reference/
+COPY_MANIFEST.csv
+IQ_DATA_SOURCES.csv
+.DS_Store
+._*
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+local-inputs/
+
+# Publication candidate excludes historical datasets and paper
+/data/*
+!/data/README.md
+/docs/*.pdf
+/results/

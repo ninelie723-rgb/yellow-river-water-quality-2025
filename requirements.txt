@@ -1,0 +1,13 @@
+# Inferred from imports; original package versions were not recorded.
+# This is not a tested or pinned environment.
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+seaborn
+lazypredict
+shap
+SkillMetrics
+openpyxl
+# ace_tools is environment-specific; see docs/REPRODUCIBILITY.md.

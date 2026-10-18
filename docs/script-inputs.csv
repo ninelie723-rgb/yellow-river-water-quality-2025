@@ -1,0 +1,14 @@
+script,imports,original_file_references
+extratrees.py,"numpy, pandas, sklearn",E:\素材2\资料\统计建模数据 (3)\千河公路桥.csv | E:\素材2\资料\统计建模数据 (3)\千河公路桥WQI预测.xlsx
+M-K final.py,"matplotlib, numpy, pandas, scipy",E:\素材2\资料\统计建模数据 (3)\all.csv
+M-K PREDICT.py,"matplotlib, numpy, pandas, scipy",E:\素材2\资料\统计建模数据 (3)\千河公路桥WQI预测.xlsx
+M-K WQI.py,"matplotlib, numpy, pandas, scipy",E:\素材2\资料\统计建模数据 (3)\高家川.csv
+predict.py,"lazypredict, pandas, sklearn",average_data_with_grade.csv
+predictdata.py,"lazypredict, pandas, sklearn",average_data_with_grade.csv
+shapmodule.py,"matplotlib, pandas, shap, sklearn",E:\素材2\资料\柏树林.csv
+taylor.py,"matplotlib, numpy, pandas, skill_metrics",time.xlsx
+主成分分析.py,"matplotlib, pandas, scipy, sklearn",
+层次聚类分析.py,"matplotlib, pandas, scipy, seaborn, sklearn",E:\素材2\资料\ALL_cleaned_gbk.csv
+巴特利 KMO.py,"numpy, pandas, scipy, sklearn",local-inputs/绿色.xlsx
+斯皮尔曼.py,"ace_tools, pandas",local-inputs/ALL_cleaned_gbk.csv
+正态检验2.py,"pandas, scipy",local-inputs/副本数据2.xlsx
