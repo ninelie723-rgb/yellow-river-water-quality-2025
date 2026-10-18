@@ -1,39 +1,37 @@
-# 复现状态与输入说明
+# Running the Water-Quality Analyses
 
-## 保留原始实现
+## Environment
 
-scripts 中 13 个脚本从 2025 竞赛提交目录原样复制。本工作副本已移除个人 macOS 路径及聊天缓存标识，并将 ace_tools 显示替换为 print；数值算法与 Windows 路径保留。通过 AST 解析并不意味着依赖安装、运行或统计结论已验证。
+`requirements.txt` lists the directly imported analysis libraries. Original package versions are unavailable, so the environment is not pinned. Use a dedicated environment and record versions when reproducing an analysis.
 
-## 输入路径对应关系
+Scripts use Chinese column names, GBK/UTF-8 encodings and fonts such as SimHei. Configure the appropriate encoding and an installed font. The scripts run independently; no validated pipeline order is provided.
 
-- 原 `E:\素材2\资料\...` 对应本项目 `data/processed` 或 `data/supplementary` 下同名文件；需手动选择和配置，不应直接去旧地址读写。
-- `extratrees.py` 的千河公路桥输入与已有预测表、`M-K WQI.py` 的高家川输入可在 supplementary 中找到。
-- `shapmodule.py` 指向 `柏树林.csv`，该文件已保留在 processed；名称与 `柏树坪.csv` 不同，两者均保留，不擅自替换。
-- `average_data_with_grade.csv` 与 `time.xlsx` 在 D 盘开发目录找到，但该目录混合两个年份的开发资料，因此保留在外层 `_local-reference/unconfirmed-inputs`，未冒充 2025 的正式输入。
-- `绿色.xlsx`、`副本数据2.xlsx` 未在本次选取的数据目录中确认；不得假设其他同名或近似表就是原输入。
-- `斯皮尔曼.py` 的 macOS 绝对路径失效，项目中保留了 `ALL_cleaned_gbk.csv` 同名候选文件；仍需核对字段和版本。
-- `主成分分析.py` 需检查其内嵌数据和其他输入逻辑；静态字符串清单不是完整的数据血缘。
+## Inputs
 
-## 环境问题
+See `script-inputs.csv` for the per-script input inventory. Configure input paths before execution and choose a separate output location for generated predictions.
 
-- `ace_tools` 为特定环境使用的显示工具，未加入普通 pip 依赖。移植时可在单独修改版中替换为 print 或文件导出。
-- 原脚本依赖 GBK/UTF-8 编码和中文字体（例如 SimHei）；Mac 上可能需要调整。
-- 未提供原环境锁定版本；requirements 只反映直接 import，不能保证所有第三方库版本兼容。
+- Trend scripts use historical station tables or prediction workbooks.
+- `extratrees.py` uses the 千河公路桥 station table and writes a prediction workbook.
+- `shapmodule.py` uses 柏树林.csv. Do not silently substitute 柏树坪.csv: these are different filenames.
+- `predict.py` and `predictdata.py` require a compatible average_data_with_grade.csv. The intended input version remains unresolved.
+- `taylor.py` requires time.xlsx with model comparison statistics; the intended version remains unresolved.
+- `巴特利 KMO.py` and `正态检验2.py` refer to 绿色.xlsx and 副本数据2.xlsx; their intended input versions remain unresolved.
+- `主成分分析.py` has an empty input path and selects fluoride, hexavalent chromium and cyanide among its variables. Supply a dataset with the required fields and establish its relationship to the study data before use.
 
-## 模型评估边界
+Matching a filename alone does not establish that a table is the correct analysis input. Check column names, units, date coverage and transformations.
 
-`extratrees.py` 使用年、月、日、小时四个日期特征，100 棵 Extra Trees，随机 80/20 划分，并生成从 2025-05-01 起的 90 天预测。脚本虽然计算测试集预测，但没有完整输出 RMSE/R² 评估报告。未来预测值不能用随机留出集拟合效果代替验证。
+## Model targets and validation
 
-`predictdata.py` 的目标是水质等级，`predict.py` 使用 wqi，SHAP 脚本也以等级为目标。论文中的 WQI-DET 任务和具体脚本目标必须逐项核对，不能混报指标。
+The scripts use different targets: `wqi`, `WQI-DET` and water-quality grade. Interpret and evaluate each task separately.
 
-若后续重建可运行流程，应新增明确的运行入口、时间划分、依赖版本与测试输出，并记录相对原脚本的修改。
+`extratrees.py` uses year/month/day/hour features, 100 Extra Trees estimators and a random 80/20 split. It exports 90 daily predictions starting on 2025-05-01. The script computes test predictions but does not produce a complete RMSE/R² evaluation report. Random holdout results do not validate independent future-period forecasting.
 
-## 当前发布候选的排除范围与新增发现
+## Statistical interpretation
 
-数据表与竞赛论文已从发布候选移出，保留在本地待确认材料中；上文“保留”描述的是历史归档，不能视为当前公开候选包含这些输入。scripts 尚不能直接运行。
+- `巴特利 KMO.py` and the PCA script call `scipy.stats.bartlett`, which tests equality of variances; this is not Bartlett’s test of sphericity. KMO is not implemented in the named script.
+- `taylor.py` derives correlation from the square root of R² and supplies ordinary RMSE as centered RMS difference. Recompute the required statistics from paired observations and predictions before interpreting the Taylor diagram.
+- The Mann–Kendall implementations differ in continuity correction and do not provide complete handling of ties or serial dependence. Review these assumptions before drawing inferential conclusions.
 
-- 主成分分析脚本的输入路径为空，且所选含氟化物、六价铬和氰化物字段的输入与项目主数据的关系待确认。
-- PCA 与“巴特利 KMO”脚本调用 scipy.stats.bartlett，对各列检验方差齐性；不能据此当成相关矩阵的球形检验。后者没有实际实现 KMO。未擅自修改历史算法。
-- taylor.py 将 R-Squared 开平方作为相关系数，并把普通 RMSE 直接作为 crmsd；这些数值不能直接当作已验证的 Taylor 图统计量。需从配对观测和预测重算。
-- M-K 实现未体现完整的 ties/自相关处理，不同脚本的连续性校正也不一致。趋势推断需重新审查。
-- 缺少经确认的输入版本、环境锁定与完整数据处理链，当前不能承诺论文复现。
+## Reproduction status
+
+The analyses and paper results have not been reproduced end to end in the current environment. Treat the scripts as the study implementation, with the input and methodological constraints described above.

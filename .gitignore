@@ -25,8 +25,7 @@ __pycache__/
 venv/
 local-inputs/
 
-# Publication candidate excludes historical datasets and paper
-/data/*
-!/data/README.md
-/docs/*.pdf
 /results/
+
+.Rhistory
+.RData

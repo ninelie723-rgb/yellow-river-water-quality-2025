@@ -1,14 +1,14 @@
-script,imports,original_file_references
-extratrees.py,"numpy, pandas, sklearn",E:\素材2\资料\统计建模数据 (3)\千河公路桥.csv | E:\素材2\资料\统计建模数据 (3)\千河公路桥WQI预测.xlsx
-M-K final.py,"matplotlib, numpy, pandas, scipy",E:\素材2\资料\统计建模数据 (3)\all.csv
-M-K PREDICT.py,"matplotlib, numpy, pandas, scipy",E:\素材2\资料\统计建模数据 (3)\千河公路桥WQI预测.xlsx
-M-K WQI.py,"matplotlib, numpy, pandas, scipy",E:\素材2\资料\统计建模数据 (3)\高家川.csv
-predict.py,"lazypredict, pandas, sklearn",average_data_with_grade.csv
-predictdata.py,"lazypredict, pandas, sklearn",average_data_with_grade.csv
-shapmodule.py,"matplotlib, pandas, shap, sklearn",E:\素材2\资料\柏树林.csv
-taylor.py,"matplotlib, numpy, pandas, skill_metrics",time.xlsx
-主成分分析.py,"matplotlib, pandas, scipy, sklearn",
-层次聚类分析.py,"matplotlib, pandas, scipy, seaborn, sklearn",E:\素材2\资料\ALL_cleaned_gbk.csv
-巴特利 KMO.py,"numpy, pandas, scipy, sklearn",local-inputs/绿色.xlsx
-斯皮尔曼.py,"ace_tools, pandas",local-inputs/ALL_cleaned_gbk.csv
-正态检验2.py,"pandas, scipy",local-inputs/副本数据2.xlsx
+﻿script,input_filename,purpose,repository_candidates,status
+M-K final.py,all.csv,Historical trend analysis,data/supplementary/统计建模数据 (3)/all.csv,Candidate: original (3) path exists
+M-K WQI.py,高家川.csv,Station WQI trend,data/supplementary/统计建模数据/高家川.csv | data/supplementary/统计建模数据 (3)/高家川.csv,Check station/version and WQI-DET column
+M-K PREDICT.py,千河公路桥WQI预测.xlsx,Prediction trend,data/supplementary/统计建模数据 (3)/千河公路桥WQI预测.xlsx,"Model prediction, not measured future observations"
+extratrees.py,千河公路桥.csv,Calendar-feature regression,data/supplementary/统计建模数据/千河公路桥.csv | data/supplementary/统计建模数据 (3)/千河公路桥.csv,Select (3) table matching script schema
+predict.py,average_data_with_grade.csv,Date/station regression,data/supplementary/统计建模数据 (3)/average_data_with_grade.csv,Candidate exists; intended version unresolved
+predictdata.py,average_data_with_grade.csv,Indicator-to-grade regression,data/supplementary/统计建模数据 (3)/average_data_with_grade.csv,Candidate exists; intended version unresolved
+shapmodule.py,柏树林.csv,Indicator-to-grade SHAP,data/processed/柏树林.csv,Do not substitute 柏树坪.csv
+taylor.py,time.xlsx,Model statistics plot,data/supplementary/resultat/time.xlsx,Candidate exists; version/statistics require verification
+层次聚类分析.py,ALL_cleaned_gbk.csv,Monthly clustering,data/processed/ALL_cleaned_gbk.csv,Check time field and numeric columns
+斯皮尔曼.py,ALL_cleaned_gbk.csv,Spearman correlation,data/processed/ALL_cleaned_gbk.csv,Check indicator columns
+主成分分析.py,,PCA,,No input configured in source
+巴特利 KMO.py,绿色.xlsx,Multivariate statistics,,Required filename not supplied
+正态检验2.py,副本数据2.xlsx,Normality tests,,Required filename not supplied
